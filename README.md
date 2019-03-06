@@ -1,1 +1,1 @@
-# fitness-calculator
+# Fitness Calculator
