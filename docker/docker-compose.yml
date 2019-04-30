@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  # Express backend
+  backend:
+    # Build Docker image
+    build: 
+      # Set directory to project root
+      context: ../
+      dockerfile: docker/Dockerfile.production 
+      args:
+        port: ${PORT}
+
+    # Load .env file
+    env_file:
+      - ../.env
+
+    # Server fails often and gracefully, so always restart
+    restart: always
+
+    # Bind container with exposed port
+    ports:
+      - "${PORT}:${PORT}"
+
+    # Ensures server doesn't come online before database
+    environment:
+      WAIT_HOSTS: database:27017
+
+  # MongoDB database
+  database:
+    image: mongo:4.0
+    env_file:
+      - ../.env
+
+    # Mount a place to store data to persist between containers
+    volumes:
+      - ".${MONGO_DATA_DIR}:${MONGO_DATA_DIR}"
+
+    # Expose port to internal Docker network but not host OS
+    expose:
+      - 27017
+    command: "mongod --smallfiles --logpath=${MONGO_LOG_FILE}"
