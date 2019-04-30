@@ -1,6 +1,6 @@
 # express-mongodb-docker
 
-Example API using Express.js and MongoDB deployed with Docker Compose and tested with Mocha.
+Sample API using Express.js and MongoDB deployed with Docker Compose and tested with Mocha.
 
 ## Build
 `npm run build`
