@@ -1,0 +1,15 @@
+services: docker
+
+before_install:
+  - docker -v
+  - cp example.env .env
+
+  # Stop unnecessary services so the build runs faster
+  - sudo /etc/init.d/postgresql stop
+  - sudo service mysql stop
+
+install:
+  - npm run build
+
+script:
+  - npm test
