@@ -6,4 +6,4 @@ RUN npm install && npm install -g mocha
 ARG port=80
 
 # Execute script to run unit tests
-CMD /wait && mocha test/unitTests.js --exit
+CMD /wait && mocha test/tests.js --exit
